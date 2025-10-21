@@ -57,7 +57,10 @@ void start_stream() {
 
     
     std::string pipeline = "gst-launch-1.0 -e -v " 
-   "videotestsrc pattern=ball num-buffers=300 ! videoconvert ! video/x-raw,width=640,height=480,framerate=30/1 ! "      "x264enc tune=zerolatency bitrate=500 speed-preset=ultrafast ! h264parse ! tee name=t " "t. ! queue ! rtph264pay ! udpsink host=127.0.0.1 port=5000 sync=false async=false " "t. ! queue ! splitmuxsink location=SEGMENTS_DIR + /segment%03d.mp4 max-size-time=10000000000"; 
+   "videotestsrc pattern=ball num-buffers=300 ! videoconvert ! video/x-raw,width=640,height=480,framerate=30/1 ! "      
+   "x264enc tune=zerolatency bitrate=500 speed-preset=ultrafast ! h264parse ! tee name=t " 
+   "t. ! queue ! rtph264pay ! udpsink host=127.0.0.1 port=5000 sync=false async=false " 
+   "t. ! queue ! splitmuxsink location=" + SEGMENTS_DIR + "/segment%03d.mp4 max-size-time=10000000000"; 
  
 // run in background and save pid
  std::string cmd = pipeline + " > /tmp/gst_stream.log 2>&1 & echo $! > " + STREAM_PID_FILE; 
