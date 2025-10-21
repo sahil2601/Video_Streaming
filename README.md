@@ -35,11 +35,11 @@ Install GStreamer on Ubuntu/Debian:
 sudo apt update
 sudo apt install gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly
 
-**## Afer cloning move to directory**
+## Afer cloning move to directory
 - mkdir build && cd build
 - cmake ..
 - make -j
 
-**Now you can start 
+Now you can start 
 Server - ./server
-Client - ./client start, next, before, stop**
+Client - ./client start, next, before, stop
