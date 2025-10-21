@@ -1,0 +1,36 @@
+name: C++ Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y g++ cmake g++-10 g++-10-multilib gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly
+
+    - name: Build server
+      run: |
+        mkdir -p build
+        g++ -std=c++17 -pthread server.cpp -o build/server -lstdc++fs
+        echo "Build successful!"
+
+    - name: Test server binary existence
+      run: |
+        if [ -f build/server ]; then
+          echo "Server binary exists ✅"
+        else
+          echo "Server binary missing ❌"
+          exit 1
+        fi
